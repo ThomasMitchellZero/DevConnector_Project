@@ -1,30 +1,40 @@
 
 const express = require("express");
+const mongoose = require("mongoose");
+
 const app = express();
 
-/* Call the Express function stored in app, call the .get
-method stored in express(), pointing at the path ('/')
-which essentially means "any get request to this URL" 
-and then sends back a page.  Don't remember using
-res.send so not sure why this is the choice, but we are
-sending back HTML text in response to GET requests. */
+//DB configuration
+/* ./config means "find a folder called config in the top-level
+folder."  mongoURI is the key we gave to the value of the URI
+string in our  */
+const db = require('./config/keys.js').mongoURI;
 
-app.get('/', (req,res) => res.send(`<h1>Big Hello</h1>`));
+//connect to MongoDB
 
-/* This is how we're defining which port we want the server
-to listen to.  Port something something || port 5000
-In this case we use const instead of var because this value
-will not be changing dynamically in the code.  */
+/* Not sure what Mongoose does, but we required it above.
+First, we use the connect method, passing it our URI string
+from the keys.js file as a target.  The bit about the URL
+parser came in response to an error message saying the string
+parser was deprecated.
+
+This mentions Promises, which I don't quite understand yet.  
+but what seems to be happening is that if we successfully
+connect, we console.log an error message and if not, the
+.catch method gets an external error message and then we
+console.log that error.
+
+Making a change to the password or username in the keys.js file
+triggers this change.
+ */
+
+mongoose
+    .connect(db,{ useNewUrlParser: true })
+    .then(() => console.log("MongoDB Connected!"))
+    .catch(err => console.log(err));
+
+app.get('/', (req,res) => res.send(`<h1>Small Hello<h1>`));
 
 const port = process.env.PORT || 5000
-
-/* Using the .listen method of Express, telling it to listen
-at the location we defined in 'port' and then the callback
-console.logs a dynamic string.  
-
-We run this in Nodemon so that server.js is listening.  Then,
-by entering 127.0.0.1.5000 (port 5000 of the local host) we
-are able to send the request from our browser to our server
-and our server is able to send back the response. */
 
 app.listen(port, () => console.log(`Server running on ${port}`));
