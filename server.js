@@ -10,7 +10,6 @@ const posts = require("./routes/api/posts.js");
 
 const app = express();
 
-
 const db = require('./config/keys.js').mongoURI;
 
 
@@ -22,18 +21,14 @@ mongoose
 
 app.get('/', (req,res) => res.send(`<h1>Small Hello<h1>`));
 
-/* Not really sure about the syntax here.  Hopefully it will all
-make sense soon. 
+/* This should be just a neater version of how we've handled URL reqs via 
+Express in the past.  For instance, users is a const. that is equal to
+whatever was exposed in the Export section of the file on the specified path.
+In this case, it's a bunch of Express functions that look just like the
+app.verb("/url", req res function{do stuff}) format we've seen in the past.  
 
-Once we have required Express, here is what I think is happening.
-First parameter is a URL.  So far so good.  Second parameter is
-supposed to be how to respond to a request to that URL.  Normally,
-we put a function here, but I think in this case we are putting
-a path to a file - in this case, the module that WILL contain
-that function.  users, profiles, and posts are all constants
-defined above to contain the path.  If I'm right, each method
-will eventually contain something that looks like the 
-function(req,res){ do something } that I have seen before.
+Remember, these consts are ONLY loaded once - when server.js is run.  After 
+that it's just there in memory like the stock JS methods.
 */
 
 app.use("/api/users", users);

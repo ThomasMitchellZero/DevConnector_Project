@@ -10,7 +10,9 @@ in the server.js app.  Not sure why.
 
 One thing I do think is happening.  I don't have to put in the 
 whole "/api/users/test route in here.  It looks like anything
-that is directed here just needs its final destination?"*/
+that is directed here just needs its final destination?"
+
+The instructor also said that */
 
 
 //@route get api/users/test
