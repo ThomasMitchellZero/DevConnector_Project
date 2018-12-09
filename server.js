@@ -1,6 +1,7 @@
 
 const express = require("express");
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
 
 /* links to the new external JS files we created for the routing. */
 
@@ -9,6 +10,12 @@ const profiles = require("./routes/api/profiles.js");
 const posts = require("./routes/api/posts.js");
 
 const app = express();
+
+// Body parser middleware
+/* setting extended: false means this will only accept string or array values? */
+app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.json());
+
 
 const db = require('./config/keys.js').mongoURI;
 
